@@ -1,0 +1,41 @@
+Workstation
+
+gem environment
+installation path(progress_job)
+/home/ubuntu/.rvm/gems/ruby-2.2.1/gems/progress_job-0.0.4/app/controllers/progress_job/progress_controller.rb
+
+
+
+module ProgressJob
+  class ProgressController < ActionController::Base
+
+    def show
+      begin
+        @delayed_job = Delayed::Job.find(params[:job_id])
+        percentage = !@delayed_job.progress_max.zero? ? @delayed_job.progress_current / @delayed_job.progress_max.to_f * 100 : 0
+        render json: @delayed_job.attributes.merge!(percentage: percentage).to_json
+      rescue => error
+        render :json => error.inspect
+      end
+    end
+
+  end
+end
+
+
+----------------------------------------------
+chef-server
+
+( cookbook folder )
+git clone https://github.com/opscode-cookbooks/chef-client.git
+
+( dependency: cron, logrotate, windows )
+knife cookbook site download windows
+
+tar xvf windows*.tar.gz -C cookbooks/
+
+knife cookbook upload --all
+
+-------------------
+upload base-client cookbook จาก notebook ขึ้นไปไว้ที่ chef-repo
+( D:\New folder\chef\cookbook )
