@@ -1,0 +1,148 @@
+
+sudo apt-get update
+
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev -y
+
+--------
+cd
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bash_profile
+source ~/.bash_profile
+
+---------
+
+rbenv install -v 2.2.1
+
+rbenv global 2.2.1
+
+echo "gem: --no-document" > ~/.gemrc
+
+gem install bundler
+
+gem install rails
+
+rbenv rehash
+
+sudo add-apt-repository ppa:chris-lea/node.js
+
+sudo apt-get update
+
+sudo apt-get install nodejs -y
+
+sudo apt-get install postgresql postgresql-contrib libpq-dev -y
+
+sudo su - postgres
+
+createuser admin --pwprompt
+
+psql
+
+ALTER ROLE admin WITH CREATEDB;
+
+cd ~/.rbenv/plugins
+
+git clone https://github.com/sstephenson/rbenv-vars.git
+
+cd ~/myapp
+
+bundle install
+
+rake secret
+
+( copy secret key )
+
+vi .rbenv-vars
+
+SECRET_KEY_BASE=
+DATABASE_USER=
+DATABASE_PASSWORD=
+
+rbenv vars
+( for check )
+
+RAILS_ENV=production rake db:create
+
+RAILS_ENV=production rake db:migrate
+
+RAILS_ENV=production rake assets:precompile
+
+grep -c processor /proc/cpuinfo
+(for worker)
+
+vi config/puma.rb (if new app)
+
+----------------------------------
+# Change to match your CPU core count
+workers 2
+
+# Min and Max threads per worker
+threads 1, 6
+
+app_dir = File.expand_path("../..", __FILE__)
+shared_dir = "#{app_dir}/shared"
+
+# Default to production
+rails_env = ENV['RAILS_ENV'] || "production"
+environment rails_env
+
+# Set up socket location
+bind "unix://#{shared_dir}/sockets/puma.sock"
+
+# Logging
+stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
+
+# Set master PID and state locations
+pidfile "#{shared_dir}/pids/puma.pid"
+state_path "#{shared_dir}/pids/puma.state"
+activate_control_app
+
+on_worker_boot do
+  require "active_record"
+  ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
+  ActiveRecord::Base.establish_connection(YAML.load_file("#{app_dir}/config/database.yml")[rails_env])
+end
+--------------------------------------
+
+mkdir -p shared/pids shared/sockets shared/log (if new app)
+
+cd ~
+wget https://raw.githubusercontent.com/puma/puma/master/tools/jungle/upstart/puma-manager.conf
+wget https://raw.githubusercontent.com/puma/puma/master/tools/jungle/upstart/puma.conf
+
+vi puma.conf
+( แก้ตามนี้
+setuid ubuntu
+setgid ubuntu
+)
+
+sudo cp puma.conf puma-manager.conf /etc/init
+
+sudo vi /etc/puma.conf
+(
+/home/ubuntu/myapp
+)
+
+sudo start puma-manager
+
+sudo start puma app=/home/ubuntu/myapp
+
+sudo stop puma-manager
+sudo restart puma-manager
+
+sudo apt-get install nginx -y
+
+sudo vi /etc/nginx/sites-available/default
+( copy จากไฟล์ Default ไปใส่ )
+
+sudo service nginx restart
+
+
+-------------------------------------------
+https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-14-04
+
+https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-puma-and-nginx-on-ubuntu-14-04
+
