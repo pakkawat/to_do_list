@@ -45,6 +45,8 @@ logrotate
 
 mkdir /home/ubuntu/myapp/log/knife
 
+vi /home/ubuntu/myapp/log/knife/system.log
+
 แบบทุก 5 นาที
 1. สร้างไฟล์ sudo vi /etc/logrotate.d/myapp
 
