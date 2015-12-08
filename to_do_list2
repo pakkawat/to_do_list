@@ -41,8 +41,10 @@ upload base-client cookbook จาก notebook ขึ้นไปไว้ที
 ( D:\New folder\chef\cookbook )
 
 --------------------------------------------
+logrotate
 
-<h3>logrotate</h3>
+mkdir /home/ubuntu/myapp/log/knife
+
 แบบทุก 5 นาที
 1. สร้างไฟล์ sudo vi /etc/logrotate.d/myapp
 
