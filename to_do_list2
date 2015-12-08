@@ -39,3 +39,46 @@ knife cookbook upload --all
 -------------------
 upload base-client cookbook จาก notebook ขึ้นไปไว้ที่ chef-repo
 ( D:\New folder\chef\cookbook )
+
+--------------------------------------------
+
+<h3>logrotate</h3>
+แบบทุก 5 นาที
+1. สร้างไฟล์ sudo vi /etc/logrotate.d/myapp
+
+/home/ubuntu/myapp/log/users/*.log {
+    size 20k
+    missingok
+    rotate 2
+    nocompress
+    notifempty
+    copytruncate
+    su root ubuntu
+}
+
+
+2. sudo vi /etc/crontab
+
+*/5 * * * * root /usr/sbin/logrotate -f /etc/logrotate.d/myapp
+
+-------
+
+แบบรายวัน
+sudo vi /etc/logrotate.conf
+
+/home/ubuntu/myapp/log/users/*.log {
+    size 20k
+    missingok
+    rotate 2
+    nocompress
+    notifempty
+    copytruncate
+    su root ubuntu
+}
+
+เพราะ /etc/cron.daily/logrotate มีคำสั่ง "/usr/sbin/logrotate /etc/logrotate.conf"
+
+------
+วิธี force run 
+
+sudo /usr/sbin/logrotate -f /etc/logrotate.conf
