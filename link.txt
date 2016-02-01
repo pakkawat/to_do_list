@@ -1,0 +1,1 @@
+http://josephndungu.com/tutorials/ajax-sortable-lists-rails-4
