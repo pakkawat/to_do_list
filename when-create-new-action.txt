@@ -1,9 +1,15 @@
 
 1. chef_resources_controller.rb
   - edit, find_unuse_program_and_file
+  
 2. chef_resources/view
   - _form.html.erb
-3. programs/view
+  
+3. modules/resource_generator.rb
+
+4. programs/view
   - _form.html.erb
-4. helpers/programs_helper.rb
-5. helpers/chef_resources_helper.rb
+  
+5. helpers/programs_helper.rb
+
+6. helpers/chef_resources_helper.rb
