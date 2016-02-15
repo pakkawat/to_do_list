@@ -13,3 +13,6 @@
 5. helpers/programs_helper.rb
 
 6. helpers/chef_resources_helper.rb
+
+7. program_cefs_controller.rb
+  - add_remove_resource
