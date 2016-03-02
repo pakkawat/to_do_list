@@ -29,3 +29,10 @@ code เริ่มต้น
 ChefAttribute.where("att_type = 'source' AND att_value LIKE (?)","%#{chef_resource.file_name}").count == 1
 ---
 ทดสอบ delete program gเพราะเปลี่ยนขั้นตอนการลบโปรแกรมใหม่
+
+---
+
+ResourceGenerator.extract_file  
+มีข้อจำกัดที่ว่า ถ้าแตกไฟล์ไปไว้ใน folder ที่มีไฟล์อื่นอยู่ด้วยจะทำให้ bash script ในขั้นตอนการแตกไฟล์ไม่ทำงานเพราะเงื่อนไข
+only_if { Dir.entries('#{des_last_path}').size == 2 }
+จะเป็น false เพราะใน folder มีไฟล์อื่นๆอยู่ด้วย
