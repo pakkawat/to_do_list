@@ -42,3 +42,9 @@ only_if { Dir.entries('#{des_last_path}').size == 2 }
 ResourceGenerator.copy_file
 อาจจะต้องตัดทิ้งไปก่อนให้ไปใช้คำสั่ง execute_command แทน
 เพราะ การ copy ไฟล์มีหลากหลายรูปแบบเช่น copy ไฟล์เดียว หรือ copy ทั้ง folder รวมไปถึงการ copy ไฟล์เดียวนั้น ไฟล์ที่ปลายทางอาจจะระบุชื่อ folder อย่างเดียวก็ได้ หรือ ระบุเป็นชื่อไฟล์ใหม่ก็ได้
+
+---
+
+ResourceGenerator.move_file
+อาจจะต้องตัดทิ้งเหมือนกันให้ไปใช้ execute_command แทนเพราะ ไฟล์บางประเภทก็ไม่มีนามสกุลอาจจะทำให้เข้าใจผิดคิดว่าเป็น folder
+แต่เอาจริงๆก็แค่เพิ่ม dropdown ว่าจะต้องการ move file หรือ folder แต่ก็ยังมาติดเรื่องของ destination_file ผู้ใช้งานอาจจะงงว่าต้องใส่แค่ path หรือ path + filename
