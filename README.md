@@ -48,3 +48,12 @@ ResourceGenerator.copy_file
 ResourceGenerator.move_file
 อาจจะต้องตัดทิ้งเหมือนกันให้ไปใช้ execute_command แทนเพราะ ไฟล์บางประเภทก็ไม่มีนามสกุลอาจจะทำให้เข้าใจผิดคิดว่าเป็น folder
 แต่เอาจริงๆก็แค่เพิ่ม dropdown ว่าจะต้องการ move file หรือ folder แต่ก็ยังมาติดเรื่องของ destination_file ผู้ใช้งานอาจจะงงว่าต้องใส่แค่ path หรือ path + filename
+
+
+---
+
+ลบ ChefValue ออกเมื่อ Program ถูกลบ หรือ User ถอนออกจากวิชานั้นๆ เอาไว้เป็นงานในอนาคตไปก่อน เพราะมีปัญหาเรื่อง ถ้ามี Program ถูกใช้ทั้งในสองวิชาหรือมากกว่าแล้ว User ลงทะเบียนทั้งสองวิชานั้นๆหรือมากกว่าจะยังลบ ChefValue ไม่ได้ เพราะ Chef_resource has_many chef_value และ dependent: destroy
+
+---
+
+การลบ Chef_resource
