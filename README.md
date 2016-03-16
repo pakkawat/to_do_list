@@ -57,3 +57,10 @@ ResourceGenerator.move_file
 ---
 
 การลบ Chef_resource
+
+
+---
+
+ถ้า user อยากเปลี่ยนค่า config ?
+1. ต้องถอน user ออกจากวิชานั้นๆก่อน (จะให้ auto ลบเลยไม่ได้ยังติดปัญหาที่ว่ามีสองวิชาหรือมากกว่าใช้ Program ตัวเดียวกัน)
+2. ลบ program ทิ้ง หรือ ลบ chef_attribute ออกแล้วสร้างใหม่
