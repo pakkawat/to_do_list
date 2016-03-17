@@ -60,11 +60,16 @@ ResourceGenerator.move_file
 
 
 ---
+การสร้าง chef_value จะเกิดเมื่อ
+1. เมื่อความสัมพันระหว่าง user กับ subject (user_subject) ถูกสร้าง
+2. เมื่อความสัมพันระหว่าง program กับ subject (programs_subject) ถูกสร้าง
+3. เมื่อ chef_attribute ถูกสร้างที่หน้า edit chef_resource
 
 การลบ chef_value จะเกิดเมื่อ
 
 1. เมื่อความสัมพันธ์ระหว่าง program กับ chef_resource ( program_chef ) ถูกลบ ที่หน้า edit program
 2. เมื่อความสัมพันธ์ระหว่าง user กับ subject (user_subkect ) ถูกลบ ที่หน้า user_subject
+3. เมื่อ chef_attribute ถูกลบที่หน้า edit chef_resource (อันนี้ auto เพราะ chef_attribute has_many chef_value depedent destroy)
 
 ---
 
