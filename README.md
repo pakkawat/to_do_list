@@ -52,7 +52,7 @@ ResourceGenerator.move_file
 
 ---
 
-ลบ ChefValue ออกเมื่อ Program ถูกลบ หรือ User ถอนออกจากวิชานั้นๆ เอาไว้เป็นงานในอนาคตไปก่อน เพราะมีปัญหาเรื่อง ถ้ามี Program ถูกใช้ทั้งในสองวิชาหรือมากกว่าแล้ว User ลงทะเบียนทั้งสองวิชานั้นๆหรือมากกว่าจะยังลบ ChefValue ไม่ได้ เพราะ Chef_resource has_many chef_value และ dependent: destroy
+ลบ ChefValue ออกเมื่อ Program ถูกลบ หรือ User ถอนออกจากวิชานั้นๆ เอาไว้เป็นงานในอนาคตไปก่อน เพราะมีปัญหาเรื่อง ถ้ามี Program ถูกใช้ทั้งในสองวิชาหรือมากกว่าแล้ว User ลงทะเบียนทั้งสองวิชานั้นๆหรือมากกว่าจะยังลบ ChefValue ไม่ได้ เพราะ Chef_resource has_many chef_attribute แล้ว chef_attribute ถึงจะ has_many chef_value
 
 ---
 
@@ -61,6 +61,13 @@ ResourceGenerator.move_file
 
 ---
 
+การลบ chef_value จะเกิดเมื่อ
+
+1. เมื่อความสัมพันธ์ระหว่าง program กับ chef_resource ( program_chef ) ถูกลบ ที่หน้า edit program
+2. เมื่อความสัมพันธ์ระหว่าง user กับ subject (user_subkect ) ถูกลบ ที่หน้า user_subject
+
+---
+
 ถ้า user อยากเปลี่ยนค่า config ?
-1. ต้องถอน user ออกจากวิชานั้นๆก่อน (จะให้ auto ลบเลยไม่ได้ยังติดปัญหาที่ว่ามีสองวิชาหรือมากกว่าใช้ Program ตัวเดียวกัน)
-2. ลบ program ทิ้ง หรือ ลบ chef_attribute ออกแล้วสร้างใหม่
+
+ตอบ ต้อง ลบ chef_resource ทิ้ง หรือ ลบ chef_attribute ออกแล้วสร้างใหม่
