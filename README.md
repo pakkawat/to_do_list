@@ -76,3 +76,7 @@ ResourceGenerator.move_file
 ถ้า user อยากเปลี่ยนค่า config ?
 
 ตอบ ต้อง ลบ chef_resource ทิ้ง หรือ ลบ chef_attribute ออกแล้วสร้างใหม่
+
+---
+
+การลบไฟล์ใน template folder ของ function "Create_file" "Config_file" "Bash_script" จะเกิดก็ต่อเมื่อเกิดการ generate remove_disuse_resource 
