@@ -84,3 +84,13 @@ ResourceGenerator.move_file
 ---
 
 จะทำความสัมพันของ UserProgram ให้เหมือนกับ UserPersonalProgram ไม่ได้ เพราะ Program สามารถอยู่ได้มากกว่าหนึ่ง Subject ดังนั้น ถ้า 2 Subject ใช้ Program ตัวเดียวกันและ user ลงทะเบียนเรียนทั้ง 2 Subject เวลาถอน Subject ออกไปแค่อันเดียวต้องยังไม่ลบ Program
+
+---
+
+เมื่อเกิดการ apply_change
+
+ku_user_job ทำหน้าที่ prepare_user_config, generate_chef_resource_for_personal_program
+
+program_job ทำหน้าที่ generate_chef_resource(ของ program นั้น), clear_remove_disuse_resource
+
+subject_job ทำหน้าที่ prepare_user_list ของแต่ละ program
