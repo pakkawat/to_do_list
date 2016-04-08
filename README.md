@@ -80,3 +80,7 @@ ResourceGenerator.move_file
 ---
 
 การลบไฟล์ใน template folder ของ function "Create_file" "Config_file" "Bash_script" จะเกิดก็ต่อเมื่อเกิดการ generate remove_disuse_resource 
+
+---
+
+จะทำความสัมพันของ UserProgram ให้เหมือนกับ UserPersonalProgram ไม่ได้ เพราะ Program สามารถอยู่ได้มากกว่าหนึ่ง Subject ดังนั้น ถ้า 2 Subject ใช้ Program ตัวเดียวกันและ user ลงทะเบียนเรียนทั้ง 2 Subject เวลาถอน Subject ออกไปแค่อันเดียวต้องยังไม่ลบ Program
