@@ -90,6 +90,7 @@ ResourceGenerator.move_file
 เมื่อเกิดการ apply_change
 
 ku_user_job ทำหน้าที่ prepare_user_config, generate_chef_resource_for_personal_program
+( การ apply_change ของ ku_user_job จะเป็นของแต่ละ user ไม่ยุ่งเกี่ยวกันเพราะ user จะต้อง log in มากด apply_change เอง)
 
 program_job ทำหน้าที่ generate_chef_resource(ของ program นั้น), clear_remove_disuse_resource
 
