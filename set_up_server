@@ -191,6 +191,10 @@ sudo service nginx restart
 
 upload cookbook จาก D:\New folder\chef\cookbook 
 
+mkdir /home/ubuntu/myapp/log/knife
+
+vi /home/ubuntu/myapp/log/knife/system.log
+
 -------------------------------------------
 https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-14-04
 
