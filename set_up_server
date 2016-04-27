@@ -47,7 +47,55 @@ cd ~/.rbenv/plugins
 
 git clone https://github.com/sstephenson/rbenv-vars.git
 
-cd ~/myapp
+
+--------------------------  set up knife ec2 ---------------------------------
+
+
+sudo apt-get install git -y
+
+git clone https://github.com/chef/chef-repo.git
+
+เปิดเวป
+https://downloads.chef.io/chef-dk/ubuntu/#/
+
+คลิกขวา copy the link address
+
+wget xxx
+
+sudo dpkg -i chefdk_*.deb
+
+chef verify
+
+mkdir -p ~/chef-repo/.chef
+
+แก้ Url ใน knife.rb ip-xxx-xxap-southeast-1.compute.internal
+
+copy chef-validator.pem, admin.pem, knife.rb
+จาก D:\New folder\chef\test_new_server_chef_12
+ไปใส่ใน /home/your_user/chef-repo/.chef/
+
+copy chef-server.pem ใน .ssh ไปไว้บนเซิฟเวอด้วย
+
+knife ssl fetch
+
+knife client list
+
+gem install chef
+
+gem install knife-ec2
+
+chef gem install knife-ec2
+
+
+---------------------------------------------------------------------------------------------------
+
+cd ~
+
+git init myapp
+
+git pull https://github.com/pakkawat/ku_workstation.git
+
+cd myapp
 
 bundle install
 
@@ -66,7 +114,7 @@ rbenv vars
 
 RAILS_ENV=production rake db:create
 
-RAILS_ENV=production rake db:migrate
+RAILS_ENV=production rake db:schema:load
 
 RAILS_ENV=production rake assets:precompile
 
@@ -136,10 +184,12 @@ sudo restart puma-manager
 sudo apt-get install nginx -y
 
 sudo vi /etc/nginx/sites-available/default
-( copy จากไฟล์ Default ไปใส่ )
+( copy จากไฟล์ Default ไปใส่ ) ( D:\New folder\chef)
 
 sudo service nginx restart
 
+
+upload cookbook จาก D:\New folder\chef\cookbook 
 
 -------------------------------------------
 https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-14-04
