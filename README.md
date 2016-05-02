@@ -33,6 +33,12 @@ chef_resource หรือ personal_chef_resource install_from_repository
 ปัญหาคือ จะแก้ยังไงดี ?
 
 ---
+
+exeute_command กับ bash_script ที่มีเงื่อนไข run only once ถ้าตอน apply change แล้วเกิด error ควรลบ ไฟล์ txt ที่ md5 ดีไหม
+
+---
+
+---
 ทดสอบ delete program gเพราะเปลี่ยนขั้นตอนการลบโปรแกรมใหม่
 
 ---
