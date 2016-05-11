@@ -1,0 +1,52 @@
+สถานะความสัมพันธ์ของ user_subject, programs_subject, user_personal_program
+
+user_personal_program
+
+Program เคยติดตั้งแล้วรึยัง
+ 1 ถ้าเคยแล้ว ( installed = true)
+  - เมื่อเกิดการแก้ไขต้องขึ้น update
+  - ถ้าเกิดการ remove แล้ว add ครับมาอีกครั้งก่อนจะกด apply_change ต้องไม่ขึ้นสถานะ แต่ถ้ามีการ update ต้องขึ้นว่า update
+
+ 2 ถ้าไม่เคย ( installed = false)
+  - ถึงแม้จะเกิดการ update ก็ต้องขึ้นว่า install
+  - ถ้าเกิดการ remove ก่อนจะกด apply_change ความสัมพันธ์ก็ต้องหายไปเลย
+
+status: install, uninstall ใช้บอกสภาพของ program
+was_updated: true, false ถ้าเป็น trueแสดงว่า program มีการแก้ไข
+installed: true, false ใช้บอกว่า program ตัวนั้นเคยเกิดการติดตั้งที่ user คนนี้แล้วหรือยัง
+state เป็นตัวสรุป สถานะ ของ program ต่อ user ( install, uninstall, update, none)
+
+เมื่อ apply_change sucess ก็ต้อง update install ที่เป็น false ให้เป็น true และ status ทุกอันให้เป็น none และ was_updated ให้เป็น false
+
+-----------------------
+
+user <---- user_subject ----> subject <---- programs_subject ----> program
+
+user_subject
+
+ตัด was_update
+ตัด status
+user_enabled = status
+apply ( = installed ) ใช้บอกว่า user คนนี้เคย apply_change กับ subject นี้แล้วหรือยัง
+state new, remove, none
+
+เมื่อ apply_change 
+ - ลบความสัมพัธ์ที่ user_enabled = false
+ - ปรับ apply ที่เป็น false ให้เป็น true ให้หมด
+ - ปรับ state ให้เป็น none
+---
+programs_subject
+
+ตัด status
+program_enabled = status
+apply ( = installed ) ใช้บอกว่า program คนนี้เคย apply_change กับ subject นี้แล้วหรือยัง
+was_updated: true, false ถ้าเป็น trueแสดงว่า program มีการแก้ไข
+state เป็นตัวสรุป สถานะ ของ program ต่อ subject ( install, uninstall, update, none)
+
+เมื่อ apply_change 
+ - ลบความสัมพัธ์ที่ program_enabled = false
+ - ปรับ was_updated ทั้งหมดให้เป็น false
+ - ปรับ apply ที่เป็น false ให้เป็น true ทั้งหมด
+ - ปรับ state ให้เป็น none
+ 
+ ---
