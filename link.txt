@@ -1,1 +1,5 @@
 http://josephndungu.com/tutorials/ajax-sortable-lists-rails-4
+
+
+ตัวอย่างการสร้าง service ใช้เอง (service "vncserver")
+https://github.com/ot4i-cookbooks/vnc/blob/master/recipes/default.rb
