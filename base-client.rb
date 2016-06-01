@@ -23,7 +23,7 @@ package 'xrdp' do
   action :install
 end
 
-%w{tomcat7 default-jdk libcairo2-dev libpng12-dev libossp-uuid-dev libfreerdp-dev make}.each do |pkg|
+%w{tomcat7 default-jdk libcairo2-dev libpng12-dev libossp-uuid-dev libfreerdp-dev make checkinstall}.each do |pkg|
   package pkg do
     action :install
   end
