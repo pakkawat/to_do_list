@@ -115,7 +115,7 @@ execute 'create_folder_execute_command' do
 end
 
 execute 'create_folder_bash_script' do
-  command "sudo mkdir /var/lib/tomcat7/webapps/ROOT/execute_command/"
+  command "sudo mkdir /var/lib/tomcat7/webapps/ROOT/bash_script/"
   not_if { ::File.directory?("/var/lib/tomcat7/webapps/ROOT/bash_script/") }
   action :run
 end
