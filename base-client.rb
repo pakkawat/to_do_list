@@ -23,7 +23,7 @@ package 'xrdp' do
   action :install
 end
 
-%w{tomcat7 default-jdk libcairo2-dev libpng12-dev libossp-uuid-dev libfreerdp-dev make checkinstall}.each do |pkg|
+%w{tomcat7 default-jdk libcairo2-dev libpng12-dev libossp-uuid-dev libfreerdp-dev make}.each do |pkg|
   package pkg do
     action :install
   end
@@ -99,6 +99,24 @@ end
 execute 'create folder sharedfile' do
   command "sudo mkdir /var/lib/tomcat7/webapps/ROOT/sharedfile/"
   not_if { ::File.exists?("/var/lib/tomcat7/webapps/ROOT/sharedfile/") }
+  action :run
+end
+
+execute 'create_folder_bash_script' do
+  command "sudo mkdir /var/lib/tomcat7/webapps/ROOT/bash_script/"
+  not_if { ::File.directory?("/var/lib/tomcat7/webapps/ROOT/bash_script/") }
+  action :run
+end
+
+execute 'create_folder_execute_command' do
+  command "sudo mkdir /var/lib/tomcat7/webapps/ROOT/execute_command/"
+  not_if { ::File.directory?("/var/lib/tomcat7/webapps/ROOT/execute_command/") }
+  action :run
+end
+
+execute 'create_folder_bash_script' do
+  command "sudo mkdir /var/lib/tomcat7/webapps/ROOT/execute_command/"
+  not_if { ::File.directory?("/var/lib/tomcat7/webapps/ROOT/bash_script/") }
   action :run
 end
 
