@@ -114,7 +114,7 @@ execute 'create_folder_execute_command' do
   action :run
 end
 
-execute 'create_folder_bash_script' do
+execute 'create_folder_install_from_source' do
   command "sudo mkdir /var/lib/tomcat7/webapps/ROOT/install_from_source/"
   not_if { ::File.directory?("/var/lib/tomcat7/webapps/ROOT/install_from_source/") }
   action :run
