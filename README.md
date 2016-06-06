@@ -106,3 +106,11 @@ ku_user_job ทำหน้าที่  generate_chef_resource_for_personal_pro
 program_job ทำหน้าที่ generate_chef_resource(ของ program นั้น), clear_remove_disuse_resource, create_user_config_for_each_user
 
 subject_job ทำหน้าที่ prepare_user_list ของแต่ละ program, create user_program กับ user_config
+
+---
+
+program กับ personal_program เวลา generate_chef_resource จะต่างกันเพราะ program ใช้ cookbook อันเดียวและตัวเดียวกันแต่ personal_program จะแยกตามกันไปของ cookbook user
+
+program เมื่อเกิดการ generate_chef_resource จะ generate ทั้ง install และ uninstall พร้อมกัน ส่วน instance ไหนจะเข้าไปทำขั้นตอนไหนจะดูที่ user_list ใน attribute folder
+
+personal_program เมื่อเกิดการ generate_chef_resource นั้นจะ generate เฉพาะ install หรือ uninstall อย่างใดอย่างหนึ่งเท่านั้นขึ้นอยู่กับ user_personal_program.status ว่าเป็นอะไร
