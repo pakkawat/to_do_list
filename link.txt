@@ -3,3 +3,9 @@ http://josephndungu.com/tutorials/ajax-sortable-lists-rails-4
 
 ตัวอย่างการสร้าง service ใช้เอง (service "vncserver")
 https://github.com/ot4i-cookbooks/vnc/blob/master/recipes/default.rb
+
+เกียวกับ logrotation
+https://www.jaynarol.com/docker-crontabs-log-rotation/
+
+น่าอ่านเอามาเขียนเล่ม
+http://nuuneoi.com/blog/blog.php?read_id=868
