@@ -1,0 +1,74 @@
+สิ่งที่ต้องแก้ตอนนี้
+- แก้ db chef_file has_many personal_chef_resource , personal_chef_resource belong_to chef_file
+- แก้ db user_remove_resources ลบ column resource_type, value, value_type ปรับความสัมพันธ์เป็น belong_to:ku_user, belong_to:pcr
+- แก้ db personal_chef_resource เพิ่ม status string
+
+    remove_reference :chef_files, :chef_resource   
+    remove_reference :chef_files, :personal_chef_resource  
+    add_reference :personal_chef_resources, :chef_file, index: true
+
+    remove_column :user_remove_resources, :resource_type, :string
+    remove_column :user_remove_resources, :value, :string
+    remove_column :user_remove_resources, :value_type, :string
+    remove_column :user_remove_resources, :personal_program_id, :integer
+    add_reference :uuser_remove_resources, :personal_chef_resource, index: true
+
+    add_column :personal_chef_resources, :status, :string
+
+- test UserRemoveResource.where(personal_chef_resource_id: @personal_chef_resource.id, ku_user: @personal_program.ku_users).destroy_all
+
+- personal_chef_resource เมื่อเกิดการ diff จะสร้าง personal_chef_resource ขึ้นมาอีกตัวที่มี status เป็น diff พร้อมกับเก็บ id ลงไปที่ user_remove_resource
+  - คำถามคือ แสดงว่าถ้า admin กด delete pcr ก็ต้องให้เก็บลง user_remove_resource ด้วยพร้อมกับสถานะเป็น delete เราสามรถเอา 2 ส่วนนี้ไป gen ที่ job ได้ไหม ?
+  -คำถามที่สอง ถ้า pcr ถูก destroy จะเกิดอะไรขึ้น
+- ทำค้างไว้ที่ ku_user_job generate_chef_resource_for_personal_program (ติดตรง user_remove_disuse_resources จะ gen ยังไงดี)
+
+---------------------------
+
+- install from deb จะ ignore failure เพื่อไปทำคำสั่ง sudo apt-get -f install ทำให้การติดตั้งโปรแกรมจาก deb ไฟล์ไม่สามารถแสดง error ที่แท้จริงได้ถ้าเกิดกรณีที่ sudo apt-get -f install ยังไม่ช่วยให้โปรแกรมติดตั้งได้สำเร็จ
+
+- uninstall from deb ถ้าใส่ชื่อโปรแกรมไม่ถูกต้องจะเกิดอะไร ?
+  1. โปรแกรมจะไม่ถูกลบและก็ไม่เกิด error ในขั้นตอน apply_change
+
+- การ uninstall program ยังต้องเป็นภาระให้กับ user จัดการเอง เพราะการ install program บางครั้งมีการใช้ bash_script ซึ่งตัวเวปยังไม่มีวิธีจัดการ
+
+- การ install หรือ uninstall from source จะครอบคลุมหรือไม่ ยังไม่แน่ใจ
+
+- check diff execute_command เพื่อลบ #{md5.hexdigest}.txt เมื่อเกิดการแก้ไข ยังไม่ได้ทำ
+
+- การทำ ssh chef-client 2 ครั้งเพื่อแก้ปัญหาการที่ program 2 ตัวหรือมากกว่าที่ในขั้นตอนการติดตั้งนั้นมีการใช้ไฟล์หรือโปรแกรมเดียวกัน 
+ซึ่งจะทำให้ การ install from source นั้นล่าช้าเพราะเกิดการ compile และ ติดตั้ง 2 ครั้ง
+
+
+- resource_gen กับ user_resource_gen ฟังชั่น remove_bash_script_file 
+มีปัญหาเรื่องการลบไฟล์ใน folder template เพราะการจะลบไฟล์นี้ได้เกิดจาก 2 กรณี คือ 1.โปรแกรมโดนลบ 2. ความสัมพัน (program_chef, personal_program_chef) ถูกลบ
+ดังนั้นเมื่อเกิดการแก้ไขต้องไม่ลบ
+
+- การ install from source หรือ deb เมื่อถูกแก้ไข source_file จะทำให้เกิดการสร้าง remove_resource/user_remove_resource ซึ่งจะทำให้เกิดการลบ program เกิดขึ้น อาจารย์เห็นว่าสมควรไหม
+  - จะเกิด error ถ้า source_file ก่อนหน้านั้นไม่มีอยู่
+
+- กรณี remove_resource หรือ user_remove_resource ทำให้เกิด error แก้ยังไง ? ( ยังไม่เคยเจอ )
+
+- install_from_source ถ้าไม่ผ่านมี error เกิดขึ้นจะทำยังไง ? ( เพราะว่าขนาด install ยังเกิด error ไม่แน่ว่า uninstall หรือ remove_resource ก็อาจจะเกิด error ตามมาด้วย)
+  - ที่คิดออกตอนนี้คือมีอีกแถบในหน้า edit program/personal_program ให้ user สามารถ destroy remove_resource/user_remove_resource
+- แล้วถ้าจะ destroy program เลยละทำยังไง ? ( เพราะถ้าต้องมานั้งลบ remove_resource/user_remove_resource ก่อนแล้ว apply_change ก่อนทีนึงถึงจะ destroy program ได้จะเสียเวลา)
+
+- uninstall_from_source เกิด error ทำให้ user/program ติดสถานะ remove/uninstall แก้ยังไง ?
+  - ที่คิดไว้ในหัวคือ เมื่อมีแถบในหน้า edit program ที่สามารถให้ admin destroy remove_resource/user_remove_resource ได้เมื่อไหร่นั้นก็ให้ admin destroy program_chef/personal_program_chef ก่อน
+  จากนั้นก็ destroy remove_resource/user_remove_resource แล้วถึงจะ apply_change ได้
+
+
+- chef_files ใช้ใน personal_chef_resource เพื่อเก็บเนื้อหาของไฟล์เช่น config file, bash script ลงไปไว้ใน db จะต้อง destroy เมื่อไหร่ ?
+----------------------
+
+- การ เปิด ปิด instance ทำไม่ได้
+  ไปดู api ของ ec2 มีไหม
+
+- การ log-in instance ด้วย key file ทำไม่ได้
+
+- การคำนวณ cost ของ instance ยังขาด data tranfer
+  อาจจะดูจาก network ของ instance โดยตรง
+
+- ftp ควรทำเป็น default ด้วยไหม
+  มี
+
+- ขอไอเดียทำ demo
