@@ -1,26 +1,5 @@
 สิ่งที่ต้องแก้ตอนนี้
-- แก้ db chef_file has_many personal_chef_resource , personal_chef_resource belong_to chef_file
-- แก้ db user_remove_resources ลบ column resource_type, value, value_type ปรับความสัมพันธ์เป็น belong_to:ku_user, belong_to:pcr
-- แก้ db personal_chef_resource เพิ่ม status string
-
-    remove_reference :chef_files, :chef_resource   
-    remove_reference :chef_files, :personal_chef_resource  
-    add_reference :personal_chef_resources, :chef_file, index: true
-
-    remove_column :user_remove_resources, :resource_type, :string
-    remove_column :user_remove_resources, :value, :string
-    remove_column :user_remove_resources, :value_type, :string
-    remove_column :user_remove_resources, :personal_program_id, :integer
-    add_reference :uuser_remove_resources, :personal_chef_resource, index: true
-
-    add_column :personal_chef_resources, :status, :string
-
-- test UserRemoveResource.where(personal_chef_resource_id: @personal_chef_resource.id, ku_user: @personal_program.ku_users).destroy_all
-
-- personal_chef_resource เมื่อเกิดการ diff จะสร้าง personal_chef_resource ขึ้นมาอีกตัวที่มี status เป็น diff พร้อมกับเก็บ id ลงไปที่ user_remove_resource
-  - คำถามคือ แสดงว่าถ้า admin กด delete pcr ก็ต้องให้เก็บลง user_remove_resource ด้วยพร้อมกับสถานะเป็น delete เราสามรถเอา 2 ส่วนนี้ไป gen ที่ job ได้ไหม ?
-  -คำถามที่สอง ถ้า pcr ถูก destroy จะเกิดอะไรขึ้น
-- ทำค้างไว้ที่ ku_user_job generate_chef_resource_for_personal_program (ติดตรง user_remove_disuse_resources จะ gen ยังไงดี)
+- สงสัยเรื่อง DataTransfer ของ EC2 คือ ตอนนี้สามารถดึงข้อมูล network ของ instance มาได้ซึ่งจะดูจาก eth0( rx, tx) ตอนนี้เข้าใจว่า การส่งข้อมูลเข้ามาที่ instance จาก internet ไม่เสียเงิน แต่การส่งข้อมูลจาก instance ออกไปที่ internet จะเสียเงิน คำถามคือ rx หรือ tx เป็นการส่งข้อมูลออกไปที่ internet หรือ ว่าคือทั้ง 2 อย่างรวมกัน
 
 ---------------------------
 
