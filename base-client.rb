@@ -142,7 +142,15 @@ execute 'execute_command' do
   command 'sudo service vsftpd restart'
 end
 
+#https://sourceforge.net/p/guacamole/discussion/1110834/thread/3364d8ed/
 execute 'set_guacd_start_service' do
   user 'root'
   command 'sudo update-rc.d guacd defaults'
+end
+
+template '/etc/rc.local' do
+  source 'rc.local.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
 end
