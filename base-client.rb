@@ -129,3 +129,20 @@ service "tomcat7" do
   supports :status => true
   action :start
 end
+
+template '/etc/vsftpd.conf' do
+  source 'vsftpd.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
+
+execute 'execute_command' do
+  user 'root'
+  command 'sudo service vsftpd restart'
+end
+
+execute 'set_guacd_start_service' do
+  user 'root'
+  command 'sudo update-rc.d guacd defaults'
+end
