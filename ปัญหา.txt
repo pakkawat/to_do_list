@@ -14,42 +14,15 @@
 
 - การ install หรือ uninstall from source จะครอบคลุมหรือไม่ ยังไม่แน่ใจ
 
-- check diff execute_command เพื่อลบ #{md5.hexdigest}.txt เมื่อเกิดการแก้ไข ยังไม่ได้ทำ
-
-- การทำ ssh chef-client 2 ครั้งเพื่อแก้ปัญหาการที่ program 2 ตัวหรือมากกว่าที่ในขั้นตอนการติดตั้งนั้นมีการใช้ไฟล์หรือโปรแกรมเดียวกัน 
-ซึ่งจะทำให้ การ install from source นั้นล่าช้าเพราะเกิดการ compile และ ติดตั้ง 2 ครั้ง
-
 
 - resource_gen กับ user_resource_gen ฟังชั่น remove_bash_script_file 
 มีปัญหาเรื่องการลบไฟล์ใน folder template เพราะการจะลบไฟล์นี้ได้เกิดจาก 2 กรณี คือ 1.โปรแกรมโดนลบ 2. ความสัมพัน (program_chef, personal_program_chef) ถูกลบ
 ดังนั้นเมื่อเกิดการแก้ไขต้องไม่ลบ
 
-- การ install from source หรือ deb เมื่อถูกแก้ไข source_file จะทำให้เกิดการสร้าง remove_resource/user_remove_resource ซึ่งจะทำให้เกิดการลบ program เกิดขึ้น อาจารย์เห็นว่าสมควรไหม
-  - จะเกิด error ถ้า source_file ก่อนหน้านั้นไม่มีอยู่
-
-- กรณี remove_resource หรือ user_remove_resource ทำให้เกิด error แก้ยังไง ? ( ยังไม่เคยเจอ )
-
-- install_from_source ถ้าไม่ผ่านมี error เกิดขึ้นจะทำยังไง ? ( เพราะว่าขนาด install ยังเกิด error ไม่แน่ว่า uninstall หรือ remove_resource ก็อาจจะเกิด error ตามมาด้วย)
-  - ที่คิดออกตอนนี้คือมีอีกแถบในหน้า edit program/personal_program ให้ user สามารถ destroy remove_resource/user_remove_resource
 - แล้วถ้าจะ destroy program เลยละทำยังไง ? ( เพราะถ้าต้องมานั้งลบ remove_resource/user_remove_resource ก่อนแล้ว apply_change ก่อนทีนึงถึงจะ destroy program ได้จะเสียเวลา)
-
-- uninstall_from_source เกิด error ทำให้ user/program ติดสถานะ remove/uninstall แก้ยังไง ?
-  - ที่คิดไว้ในหัวคือ เมื่อมีแถบในหน้า edit program ที่สามารถให้ admin destroy remove_resource/user_remove_resource ได้เมื่อไหร่นั้นก็ให้ admin destroy program_chef/personal_program_chef ก่อน
-  จากนั้นก็ destroy remove_resource/user_remove_resource แล้วถึงจะ apply_change ได้
 
 
 - chef_files ใช้ใน personal_chef_resource เพื่อเก็บเนื้อหาของไฟล์เช่น config file, bash script ลงไปไว้ใน db จะต้อง destroy เมื่อไหร่ ?
-----------------------
 
-- การ เปิด ปิด instance ทำไม่ได้
-  ไปดู api ของ ec2 มีไหม
-
-- การ log-in instance ด้วย key file ทำไม่ได้
-
-- การคำนวณ cost ของ instance ยังขาด data tranfer
-  อาจจะดูจาก network ของ instance โดยตรง
-
-- ftp ควรทำเป็น default ด้วยไหม
-  มี
-
-- ขอไอเดียทำ demo
+- execute_command กับ bash_script ถ้ากำหนดเงื่อนไขเป็น run only once และ apply_change ไปแล้ว ถึงแม้จะเกิดการแก้ไขก็จะไม่ run ซ้ำอีกครั้งเพราะ File.exists?('/var/lib/tomcat7/webapps/ROOT/bash_script/chef_resource_#{chef_resource.id}.txt' เป็น True
+  ดังนั้นถ้าต้องการแก้ไข execute_command หรือ bash_script และทำการ apply_chang อีกครั้งต้องทำการสร้าง execute_command หรือ bash_script ขึ้นมาใหม่เท่านั้น
