@@ -21,6 +21,7 @@
 
 - แล้วถ้าจะ destroy program เลยละทำยังไง ? ( เพราะถ้าต้องมานั้งลบ remove_resource/user_remove_resource ก่อนแล้ว apply_change ก่อนทีนึงถึงจะ destroy program ได้จะเสียเวลา)
 
+- การติดตั้งโปรแกรมที่มี promt เด้งขึ้นมาให้กรอกข้อมูลจะไม่สามารถติดตั้งได้ต้องไปหาวิธีอื่น
 
 - chef_files ใช้ใน personal_chef_resource เพื่อเก็บเนื้อหาของไฟล์เช่น config file, bash script ลงไปไว้ใน db จะต้อง destroy เมื่อไหร่ ?
 
