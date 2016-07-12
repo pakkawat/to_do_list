@@ -3,6 +3,8 @@
 
 - ตรวจสอบ Url ใน donwload_file ก่อนทำการ save ลง db ว่าเป็น url ที่ถูกต้องหรือไม่Chef::Exceptions::InvalidRemoteFileURI
 
+- ให้ account ใน instance ของ user มีสิทธ์เป็น root ?
+
 ---------------------------
 
 - install from deb จะ ignore failure เพื่อไปทำคำสั่ง sudo apt-get -f install ทำให้การติดตั้งโปรแกรมจาก deb ไฟล์ไม่สามารถแสดง error ที่แท้จริงได้ถ้าเกิดกรณีที่ sudo apt-get -f install ยังไม่ช่วยให้โปรแกรมติดตั้งได้สำเร็จ
