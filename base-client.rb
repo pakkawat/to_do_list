@@ -23,7 +23,7 @@ package 'xrdp' do
   action :install
 end
 
-%w{tomcat7 default-jdk libcairo2-dev libpng12-dev libossp-uuid-dev libfreerdp-dev make}.each do |pkg|
+%w{tomcat7 default-jdk libcairo2-dev libpng12-dev libossp-uuid-dev libfreerdp-dev make vsftpd}.each do |pkg|
   package pkg do
     action :install
   end
@@ -40,8 +40,7 @@ end
 version = node['guacamole']['version']
 
 remote_file "#{Chef::Config[:file_cache_path]}/guacamole-server-#{version}.tar.gz" do
-  source "http://sourceforge.net/projects/guacamole/files/current/source/guacamole-server-#{version}.tar.gz
-"
+  source "http://ufpr.dl.sourceforge.net/project/guacamole/current/source/guacamole-server-#{version}.tar.gz"
   mode '0755'
   not_if { ::File.exists?("#{Chef::Config[:file_cache_path]}/guacamole-server-#{version}.tar.gz") }
 end
@@ -57,7 +56,7 @@ bash 'build-and-install-guacamole-server' do
 end
 
 remote_file "/var/lib/guacamole/guacamole.war" do
-  source "http://sourceforge.net/projects/guacamole/files/current/binary/guacamole-#{version}.war"
+  source "http://ufpr.dl.sourceforge.net/project/guacamole/current/binary/guacamole-#{version}.war"
   mode '0755'
   not_if { ::File.exists?("/var/lib/guacamole/guacamole.war") }
 end
@@ -70,7 +69,7 @@ end
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/guacamole-auth-noauth-#{version}.tar.gz" do
-  source "http://sourceforge.net/projects/guacamole/files/current/extensions/guacamole-auth-noauth-#{version}.tar.gz"
+  source "http://ufpr.dl.sourceforge.net/project/guacamole/current/extensions/guacamole-auth-noauth-#{version}.tar.gz"
   mode '0755'
   not_if { ::File.exists?("#{Chef::Config[:file_cache_path]}/guacamole-auth-noauth-#{version}.tar.gz") }
 end
@@ -96,9 +95,9 @@ ruby_block "edit tomcat7 file" do
   notifies :restart, 'service[tomcat7]'
 end
 
-execute 'create folder sharedfile' do
+execute 'create_folder_sharedfile' do
   command "sudo mkdir /var/lib/tomcat7/webapps/ROOT/sharedfile/"
-  not_if { ::File.exists?("/var/lib/tomcat7/webapps/ROOT/sharedfile/") }
+  not_if { ::File.directory?("/var/lib/tomcat7/webapps/ROOT/sharedfile/") }
   action :run
 end
 
