@@ -31,3 +31,6 @@
 
 - execute_command กับ bash_script ถ้ากำหนดเงื่อนไขเป็น run only once และ apply_change ไปแล้ว ถึงแม้จะเกิดการแก้ไขก็จะไม่ run ซ้ำอีกครั้งเพราะ File.exists?('/var/lib/tomcat7/webapps/ROOT/bash_script/chef_resource_#{chef_resource.id}.txt' เป็น True
   ดังนั้นถ้าต้องการแก้ไข execute_command หรือ bash_script และทำการ apply_chang อีกครั้งต้องทำการสร้าง execute_command หรือ bash_script ขึ้นมาใหม่เท่านั้น
+
+
+- การ ปิด/เปิด instance ถ้ารีบ connect จะทำให้เกิดปัญหากับ guacamole ได้ ซึ่งวิธีแก้คือสั่ง sudo service tomcat7 restart ไปที่ client ปัญหาคือจะออกแบบยังไงดีถ้า user เจอกับปัญหานี้ที่คิดไว้มี ปุ่มให้กดเพื่อสั่ง tomcat7 restart ดีไหม ?
