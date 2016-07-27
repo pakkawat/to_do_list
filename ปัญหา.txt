@@ -37,3 +37,6 @@
 
 
 - กรณีที่ action bas_script มีเงื่อนไขเป็น alway run และเกิดการ apply_change ไปแล้ว จากนั้นถ้าเกิด apply_change อีกรอบแล้วเกิด error เกิดขึ้นซึ่งจะทำให้โปรแกรมหยุดติดตั้ง ปัญหาคือการจะทำให้โปรแกรมติดตั้งต่อไปได้นั้นที่คิดออกคือ ลบ code ใน bash_script ทิ้งไปก่อนแล้วปรับเงื่อนไขเป็น run only once เพื่อให้เกิดการสร้าง txt file ที่ใช้เป็นเงื่อนไข not_if จากนั้นถึงจะ apply_change เพื่อให้โปรแกรมติดตั้งผ่านไปได้ก่อนแล้วค่อยนำ code ใน bash_script กลับคืน
+
+
+- ถ้าใน personal program ของ user มีขั้นตอนการติดตั้งที่ทำให้เกิด error อยู่และได้ทำการ destroy personal_chef_resource ไปแล้วแต่ยังไม่ได้ apply_change จะทำให้เวลาที่ admin apply_change subject ที่เกี่ยวข้องกับ user คนนั้นๆเกิด error และที่หน้า profile ของ user ก็จะเกิด error ด้วย เพราะ personal_chef_resource ถูกทำลายไปแล้วทำให้หาไม่เจอ
