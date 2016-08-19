@@ -7,6 +7,10 @@
 
 - เขียน code ดักไม่ให้สามารถตั้งชื่อ program กับ personal_program ซ้ำกัน รวมไปถึง space
 
+- Chef_attribute คอลั่ม value ไม่ได้ใช้แล้ว
+- Ku_User คอลั่ม run_list ไม่ได้ใช้
+- Ku_User คอลั่ม status ไม่ได้ใช้
+
 ---------------------------
 
 - install from deb จะ ignore failure เพื่อไปทำคำสั่ง sudo apt-get -f install ทำให้การติดตั้งโปรแกรมจาก deb ไฟล์ไม่สามารถแสดง error ที่แท้จริงได้ถ้าเกิดกรณีที่ sudo apt-get -f install ยังไม่ช่วยให้โปรแกรมติดตั้งได้สำเร็จ
